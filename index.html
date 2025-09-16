@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Love Celebration 💖</title>
+<style>
+  body {
+    margin:0;
+    padding:0;
+    height:100vh;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: linear-gradient(135deg, #ffb6c1, #da70d6, #87cefa);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: relative;
+  }
+
+  @keyframes gradientShift {
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+  }
+
+  .message {
+    position: relative;
+    z-index: 2000;
+    text-align:center;
+    color: #000; /* parlak siyah */
+    text-shadow: 2px 2px 6px rgba(255,255,255,0.5);
+    animation: pulse 10s infinite;
+  }
+  @keyframes pulse {
+    0%,100%{transform: scale(1);}
+    50%{transform: scale(1.15);}
+  }
+  .message h1{ font-size:3rem; margin:0.2em 0;}
+  .message p{ font-size:2rem; margin:0.2em 0; font-weight:600;}
+
+  .heart {
+    position:absolute;
+    width:20px;
+    height:20px;
+    transform:rotate(45deg);
+    animation: floatUp 12s linear infinite;
+  }
+  .heart::before,.heart::after {
+    content:"";
+    position:absolute;
+    width:20px;
+    height:20px;
+    border-radius:50%;
+  }
+  .heart::before{top:-10px; left:0;}
+  .heart::after{left:10px; top:0;}
+  @keyframes floatUp {
+    0%{opacity:1; transform: translate(0,0) scale(0.5) rotate(0deg);}
+    100%{opacity:0; transform: translate(calc(-50px + 100px*var(--randx)),-800px) scale(1.5) rotate(calc(360deg*var(--randrot)));}
+  }
+
+  .star {
+    position:absolute;
+    background:white;
+    border-radius:50%;
+    opacity:0.8;
+    animation: twinkle 10s infinite alternate;
+    box-shadow:0 0 6px white;
+  }
+  @keyframes twinkle{
+    0%,100%{opacity:0.2;}
+    50%{opacity:0.9;}
+  }
+
+  .firework {
+    position:absolute;
+    width:4px;
+    height:4px;
+    border-radius:50%;
+    background:hsl(0,100%,70%);
+    animation: explode 10s linear infinite;
+    box-shadow:0 0 8px currentColor;
+  }
+  @keyframes explode {
+    0%{transform: scale(0) translate(0,0); opacity:1;}
+    50%{transform: scale(1) translate(calc(-50px + 100px*var(--randx)), calc(-50px + 100px*var(--randy))); opacity:0.8;}
+    100%{transform: scale(0) translate(0,0); opacity:0;}
+  }
+</style>
+</head>
+<body>
+
+<div class="message">
+  <h1>Happy First Month!</h1>
+  <p>أحبك كثيراً, Omar 💖</p>
+  <p>I'm so glad I met you ❤️</p>
+  <p>I hope we have many months like this together ❤️</p>
+</div>
+
+<script>
+  // 1000 Yıldız
+  for(let i=0;i<1000;i++){
+    const star=document.createElement('div');
+    star.className='star';
+    const size=Math.random()*2+1+'px';
+    star.style.width=size;
+    star.style.height=size;
+    star.style.top=Math.random()*100+'vh';
+    star.style.left=Math.random()*100+'vw';
+    star.style.animationDuration=(5+Math.random()*5)+'s';
+    document.body.appendChild(star);
+  }
+
+  // 800 Kalp
+  function createHeart(){
+    const heart=document.createElement('div');
+    heart.className='heart';
+    const hue=330 + Math.random()*20;
+    heart.style.background=`hsl(${hue},90%,60%)`;
+    heart.style.setProperty('--randx',Math.random());
+    heart.style.setProperty('--randrot',Math.random()*2);
+    heart.style.left=Math.random()*100+'vw';
+    heart.style.top=Math.random()*100+'vh';
+    heart.style.width=(10+Math.random()*20)+'px';
+    heart.style.height=(10+Math.random()*20)+'px';
+    heart.style.boxShadow=`0 0 10px hsl(${hue},90%,70%)`;
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),12000);
+  }
+  setInterval(createHeart,5); // Çok yoğun
+
+  // 200 Havai Fişek
+  function createFirework(){
+    for(let i=0;i<200;i++){
+      const fw=document.createElement('div');
+      fw.className='firework';
+      fw.style.setProperty('--randx',Math.random()*2-1);
+      fw.style.setProperty('--randy',Math.random()*2-1);
+      fw.style.top=Math.random()*100+'vh';
+      fw.style.left=Math.random()*100+'vw';
+      fw.style.background=`hsl(${Math.random()*360},100%,70%)`;
+      fw.style.color = fw.style.background;
+      document.body.appendChild(fw);
+      setTimeout(()=>fw.remove(),10000);
+    }
+  }
+  setInterval(createFirework,500); // Yoğun patlamalar
+</script>
+
+</body>
+</html>
